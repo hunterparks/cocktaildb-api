@@ -1,0 +1,141 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "A NodeJS/Express API for The Cocktail DB.\n\n**Note: This documentation is _not_ complete.**",
+    "version": "1.0.0",
+    "title": "The Cocktail DB Wrapper",
+    "termsOfService": "https://github.com/hunterparks/cocktaildb-api",
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/hunterparks/cocktaildb-api/blob/main/LICENSE"
+    }
+  },
+  "host": "localhost:5000",
+  "basePath": "/api/json/v1",
+  "tags": [
+    {
+      "name": "Cocktails",
+      "description": "Cocktail related calls"
+    },
+    {
+      "name": "List",
+      "description": "List available data filters"
+    }
+  ],
+  "paths": {
+    "/cocktails/random": {
+      "get": {
+        "tags": [
+          "Cocktails"
+        ],
+        "summary": "Returns a random cocktail",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/cocktails/random/{count}": {
+      "get": {
+        "tags": [
+          "Cocktails"
+        ],
+        "summary": "Returns a specified number of random cocktails",
+        "parameters": [
+          {
+            "name": "count",
+            "in": "path",
+            "description": "Number of random cocktails to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/alcoholic_filters": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Returns a list of valid cocktail types",
+        "description": "Only these cocktail types are valid for use.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Returns a list of valid cocktail categories",
+        "description": "Only these cocktail categories are valid for use.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/glasses": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Returns a list of valid cocktail glasses",
+        "description": "Only these cocktail glasses are valid for use.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/ingredients": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Returns a list of valid cocktail ingredients",
+        "description": "Only these cocktail ingredients are valid for use.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "See The Cocktail DB Official API",
+    "url": "https://www.thecocktaildb.com/api.php"
+  }
+}

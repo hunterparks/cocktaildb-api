@@ -1,0 +1,39 @@
+{
+  "name": "cocktaildb-api",
+  "version": "1.0.0",
+  "description": "A NodeJS/Express API for The Cocktail DB",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "test": "export NODE_ENV=test; nyc mocha test/{,**/}*.js; export NODE_ENV"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hunterparks/cocktaildb-api.git"
+  },
+  "author": "Hunter Parks <hunter@prks.cc>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hunterparks/cocktaildb-api/issues"
+  },
+  "homepage": "https://github.com/hunterparks/cocktaildb-api#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-pagination-middleware": "^1.0.2",
+    "helmet": "^4.6.0",
+    "morgan": "^1.10.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "mocha": "^9.1.0",
+    "nodemon": "^2.0.12",
+    "nyc": "^15.1.0"
+  },
+  "mocha": {}
+}
