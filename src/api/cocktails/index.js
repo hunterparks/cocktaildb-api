@@ -29,8 +29,7 @@ router.get('/', userPaginationMiddleware, async (req, res, next) => {
             return next(error);
         }try {
             const { data } = await axios.get(`${BASE_DB_URL}/search.php?f=${firstLetterQuery}`);
-            // TODO: Look at local db
-            if (data.drinks.length <= skip) return res.json({ 'drinks': [] });
+            if (!data.drinks || data.drinks.length <= skip) return res.json({ 'drinks': [] });
             data.drinks.splice(0, skip);
             return res.json({ 'drinks': data.drinks.slice(0, limit) });
         } catch (error) {
@@ -42,7 +41,7 @@ router.get('/', userPaginationMiddleware, async (req, res, next) => {
     if (typeFilter) {
         try {
             const { data } = await axios.get(`${BASE_DB_URL}/filter.php?a=${typeFilter}`);
-            if (data.drinks.length <= skip) return res.json({ 'drinks': [] });
+            if (!data.drinks || data.drinks.length <= skip) return res.json({ 'drinks': [] });
             data.drinks.splice(0, skip);
             return res.json({ 'drinks': data.drinks.slice(0, limit) });
         } catch (error) {
@@ -54,7 +53,7 @@ router.get('/', userPaginationMiddleware, async (req, res, next) => {
     if (categoryFilter) {
         try {
             const { data } = await axios.get(`${BASE_DB_URL}/filter.php?c=${categoryFilter}`);
-            if (data.drinks.length <= skip) return res.json({ 'drinks': [] });
+            if (!data.drinks || data.drinks.length <= skip) return res.json({ 'drinks': [] });
             data.drinks.splice(0, skip);
             return res.json({ 'drinks': data.drinks.slice(0, limit) });
         } catch (error) {
@@ -66,7 +65,7 @@ router.get('/', userPaginationMiddleware, async (req, res, next) => {
     if (glassFilter) {
         try {
             const { data } = await axios.get(`${BASE_DB_URL}/filter.php?g=${glassFilter}`);
-            if (data.drinks.length <= skip) return res.json({ 'drinks': [] });
+            if (!data.drinks || data.drinks.length <= skip) return res.json({ 'drinks': [] });
             data.drinks.splice(0, skip);
             return res.json({ 'drinks': data.drinks.slice(0, limit) });
         } catch (error) {
@@ -117,8 +116,7 @@ router.get('/', userPaginationMiddleware, async (req, res, next) => {
         return next(error);
     }
     try {
-        const { data } = await axios.get(`${BASE_DB_URL}/search.php?s=${query}`)
-        // TODO: Look at local db
+        const { data } = await axios.get(`${BASE_DB_URL}/search.php?s=${query}`);
         return res.json(data);
     } catch (error) {
         return next(error);
@@ -130,12 +128,15 @@ router.get(`/random`, async (req, res, next) => {
 });
 
 router.get(`/random/:count`, async (req, res, next) => {
-    const count = req.params.count;
+    let count = req.params.count;
     if (!count || isNaN(count)) {
         const error = new Error(`Invalid random count: '${count}'`);
         return next(error);
     }
     let randomDrinks = { "drinks": [] };
+    if (count > 100) {
+        count = 100;
+    }
     for (let i = 0; i < count; i++) {
         try {
             const { data } = await axios.get(`${BASE_DB_URL}/random.php`);

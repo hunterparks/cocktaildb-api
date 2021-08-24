@@ -22,6 +22,8 @@ For tests/coverage, run: `npm run test`
 * 🔤 Error localization
 * 🚗 Rate/speed limiting
 * 💫 Allow multi-dimensional filtering
+* 🧼 Parameter/query sanatization
+* 🕵️‍♂️ Provide pagination limit/skip in response
 * 🔽 Download/reorganize The Cocktail DB data
     * 🔀 Get random cocktails from local store
     * 💹 Track popular cocktails (not implemented)
@@ -45,14 +47,14 @@ For tests/coverage, run: `npm run test`
 
 ### API Wrapper
 
-Base URL: `https://localhost:5000/api/json/v1`
+Base URL: `http://localhost:5000/api/json/v1`
 
 * `/cocktails`
     * `?q=<name>` Search cocktail by name
     * `/<id>` Lookup fill cocktail details by id
         * `/preview` Drink thumbnails (100x100 pixels)
     * `/random` Lookup a random cocktail
-        * `/<count>` Lookup a selection of 10 random cocktails
+        * `/<count>` Lookup a selection of up to 100 random cocktails
     * `?firstLetter=a` List all cocktails by first letter
     *  `?ingredients=Gin` or `?ingredients=Vodka,Dry_Vermouth` Search by ingredient (supports CSL)
     * `?type=Alcoholic` or `?type=Non_Alcoholic` Filter by alcoholic
@@ -67,6 +69,16 @@ Base URL: `https://localhost:5000/api/json/v1`
 * `/categories` List the categories
 * `/glasses` List the glasses
 * `/alcoholic_filters` List the alcoholic filters
+* `/custom_cocktails`
+    * `GET` List all custom cocktails
+    * `POST` Create a new custom cocktail
+        * `{ "name": "New cocktail", "ingredients": [ "one", "two" ]}`
+    * `/<id>`
+        * `GET` List specific custom cocktail by id
+        * `PUT` Update a custom cocktail
+            * `{ "name": "New name" }`
+            * `{ "ingredients": [ "one", "two", "new three" ]}`
+        * `DELETE` Delete a custom cocktail
 
 📝 _Note_: More documentation details can be found at `/docs`
 
